@@ -1,53 +1,109 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高考倒计时</title>
+    <title>高考倒计时程序</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      .container {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f1f1f1;
-      }
-      .countdown {
-        width: 500px;
-        height: 200px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #ccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-      h1 {
-        font-size: 36px;
-        color: #333;
-        margin-bottom: 20px;
-      }
-      .time {
-        font-size: 72px;
-        color: #333;
-        margin-bottom: 20px;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+        }
+
+        .countdown div {
+            margin: 0 10px;
+        }
+
+        .countdown span {
+            display: block;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .countdown div div {
+            font-size: 1.2rem;
+            color: #999;
+            margin-top: 5px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="countdown">
         <h1>高考倒计时</h1>
-        <div class="time" id="time"></div>
-      </div>
+        <div class="countdown">
+            <div>
+                <span id="days"></span>
+                <div>天</div>
+            </div>
+            <div>
+                <span id="hours"></span>
+                <div>小时</div>
+            </div>
+            <div>
+                <span id="minutes"></span>
+                <div>分钟</div>
+            </div>
+            <div>
+                <span id="seconds"></span>
+                <div>秒</div>
+            </div>
+        </div>
     </div>
-  </body>
-  <script src="index.js"></script>
+    <script>
+        // 考试日期
+        var examDate = new Date("2022-06-07 9:00:00");
+
+        // 更新倒计时
+        function updateCountdown() {
+            var now = new Date();
+            var timeDiff = examDate - now;
+
+            if (timeDiff < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown").innerHTML = "<h2>考试已结束</h2>";
+                return;
+            }
+
+            var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+        }
+
+        // 定时器，每秒更新一次
+        var countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
 </html>
