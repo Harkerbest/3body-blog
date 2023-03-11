@@ -1,5 +1,5 @@
 const countdown = document.querySelector("#time");
-const endDate = new Date("2022-06-07 00:00:00");
+const endDate = new Date("2023-06-07 00:00:00");
 
 setInterval(() => {
   const now = new Date();
